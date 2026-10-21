@@ -1,0 +1,47 @@
+# Labor Board - job queue dashboard
+#
+# Copy this section into your application's settings (neuron.yaml or the
+# file your SettingManager loads). Every key is optional; the values shown
+# are the defaults.
+
+labor_board:
+  # Set false to remove the routes, views and navigation entirely.
+  enabled: true
+
+  # Name of a router filter registered by the host application that runs
+  # before every queue page. The CMS registers `admin`. Set to null (or
+  # "none") to run with no authentication at all - only do that behind
+  # something else, such as HTTP basic auth or a VPN.
+  auth_filter: admin
+
+  # Role the authenticated user must hold (read from the AUTH_USER_ROLE
+  # Registry key the auth filter publishes). A list or comma string is
+  # accepted. null / "none" skips the check.
+  role: admin
+
+  # auto        use layouts/admin.php when the host has one, else the
+  #             package's standalone layouts/labor-board.php
+  # admin       always the host admin layout
+  # labor-board always the standalone layout
+  # <name>      any other layout under your views/layouts/
+  layout: auto
+
+  # Jobs per page on queue and failed-job listings.
+  page_size: 50
+
+  # Seconds between counter refreshes on the overview. 0 disables it.
+  refresh_seconds: 10
+
+  # Seconds after which a reserved job is flagged stale (worker probably
+  # died). Defaults to queue.retry_after.
+  # stale_after: 90
+
+  # Overview thresholds. 0 disables a threshold.
+  warn_pending: 100        # queue row turns yellow
+  alert_pending: 1000      # queue row turns red
+  warn_oldest_age: 300     # yellow when the oldest pending job has waited this long
+
+# To disable discovery of the component without changing this section:
+# components:
+#   disabled:
+#     - Neuron\LaborBoard\Provider
